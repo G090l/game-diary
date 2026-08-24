@@ -13,6 +13,7 @@ const Stats: React.FC = () => {
     const fetchStats = async () => {
         try {
             const response = await entryService.getStats();
+            console.log('Stats data:', response.data); // Для отладки
             setStats(response.data);
             setLoading(false);
         } catch (error) {
@@ -21,12 +22,17 @@ const Stats: React.FC = () => {
         }
     };
 
-    if (loading) return <div className="text-center">Загрузка...</div>;
+    if (loading) return <div className="text-center" style={{ padding: '40px' }}>Загрузка...</div>;
 
+    // Безопасное получение значений с проверкой на null/undefined
     const totalEntries = stats?.total_entries || 0;
     const totalTime = stats?.total_time || 0;
     const avgRating = stats?.avg_rating || 0;
     const totalGames = stats?.total_games || 0;
+
+    // Преобразуем avgRating в число, если это строка
+    const avgRatingNumber = typeof avgRating === 'string' ? parseFloat(avgRating) : Number(avgRating);
+    const displayRating = isNaN(avgRatingNumber) ? 0 : avgRatingNumber;
 
     return (
         <div>
@@ -47,7 +53,7 @@ const Stats: React.FC = () => {
                         <div className="stat-label">Общее время</div>
                     </div>
                     <div className="stat-card">
-                        <div className="stat-value">{avgRating ? avgRating.toFixed(1) : '0'}</div>
+                        <div className="stat-value">{displayRating ? displayRating.toFixed(1) : '0'}</div>
                         <div className="stat-label">Средний рейтинг</div>
                     </div>
                 </div>
@@ -55,32 +61,34 @@ const Stats: React.FC = () => {
 
             <div className="card">
                 <h3>Статус игр</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Статус</th>
-                            <th>Количество</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {stats?.status_stats && stats.status_stats.length > 0 ? (
-                            stats.status_stats.map(item => (
-                                <tr key={item.status}>
-                                    <td>
-                                        <span className={`status-badge ${getStatusClass(item.status)}`}>
-                                            {getStatusLabel(item.status)}
-                                        </span>
-                                    </td>
-                                    <td><strong>{item.count}</strong></td>
-                                </tr>
-                            ))
-                        ) : (
+                <div className="table-container">
+                    <table>
+                        <thead>
                             <tr>
-                                <td colSpan={2} className="text-center">Нет данных</td>
+                                <th>Статус</th>
+                                <th>Количество</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {stats?.status_stats && stats.status_stats.length > 0 ? (
+                                stats.status_stats.map(item => (
+                                    <tr key={item.status}>
+                                        <td>
+                                            <span className={`status-badge ${getStatusClass(item.status)}`}>
+                                                {getStatusLabel(item.status)}
+                                            </span>
+                                        </td>
+                                        <td><strong>{item.count}</strong></td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={2} className="text-center">Нет данных</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div className="card">

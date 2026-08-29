@@ -26,7 +26,7 @@ export interface Stats {
     total_games: number;
     total_entries: number;
     total_time: number;
-    avg_rating: number | string | null; // Может быть null или строкой
+    avg_rating: number | string | null;
     status_stats: {
         status: string;
         count: number;

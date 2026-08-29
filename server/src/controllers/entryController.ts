@@ -3,7 +3,6 @@ import { getPool } from '../config/database';
 import { GameEntry } from '../models/GameEntry';
 
 export const entryController = {
-    // Получить все записи
     async getAllEntries(req: Request, res: Response) {
         try {
             const pool = getPool();
@@ -19,7 +18,6 @@ export const entryController = {
         }
     },
 
-    // Получить записи для конкретной игры
     async getEntriesByGame(req: Request, res: Response) {
         try {
             const { gameId } = req.params;
@@ -34,7 +32,6 @@ export const entryController = {
         }
     },
 
-    // Создать запись
     async createEntry(req: Request, res: Response) {
         try {
             const { game_id, date, time_spent, rating, review, status } = req.body;
@@ -53,7 +50,6 @@ export const entryController = {
         }
     },
 
-    // Обновить запись
     async updateEntry(req: Request, res: Response) {
         try {
             const { id } = req.params;
@@ -73,7 +69,6 @@ export const entryController = {
         }
     },
 
-    // Удалить запись
     async deleteEntry(req: Request, res: Response) {
         try {
             const { id } = req.params;
@@ -86,18 +81,14 @@ export const entryController = {
         }
     },
 
-    // Получить статистику
     async getStats(req: Request, res: Response) {
         try {
             const pool = getPool();
 
-            // Общая статистика
             const [totalGames] = await pool.query('SELECT COUNT(*) as total FROM games');
             const [totalEntries] = await pool.query('SELECT COUNT(*) as total FROM game_entries');
             const [totalTime] = await pool.query('SELECT SUM(time_spent) as total FROM game_entries');
             const [avgRating] = await pool.query('SELECT AVG(rating) as avg FROM game_entries WHERE rating IS NOT NULL');
-
-            // Статистика по статусам
             const [statusStats] = await pool.query(`
         SELECT status, COUNT(*) as count 
         FROM game_entries 

@@ -13,7 +13,7 @@ const Stats: React.FC = () => {
     const fetchStats = async () => {
         try {
             const response = await entryService.getStats();
-            console.log('Stats data:', response.data); // Для отладки
+            console.log('Stats data:', response.data);
             setStats(response.data);
             setLoading(false);
         } catch (error) {
@@ -24,13 +24,11 @@ const Stats: React.FC = () => {
 
     if (loading) return <div className="text-center" style={{ padding: '40px' }}>Загрузка...</div>;
 
-    // Безопасное получение значений с проверкой на null/undefined
     const totalEntries = stats?.total_entries || 0;
     const totalTime = stats?.total_time || 0;
     const avgRating = stats?.avg_rating || 0;
     const totalGames = stats?.total_games || 0;
 
-    // Преобразуем avgRating в число, если это строка
     const avgRatingNumber = typeof avgRating === 'string' ? parseFloat(avgRating) : Number(avgRating);
     const displayRating = isNaN(avgRatingNumber) ? 0 : avgRatingNumber;
 

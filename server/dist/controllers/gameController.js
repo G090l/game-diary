@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.gameController = void 0;
 const database_1 = require("../config/database");
 exports.gameController = {
-    // Получить все игры
     async getAllGames(req, res) {
         try {
             const pool = (0, database_1.getPool)();
@@ -14,7 +13,6 @@ exports.gameController = {
             res.status(500).json({ error: 'Failed to fetch games' });
         }
     },
-    // Получить игру по ID
     async getGameById(req, res) {
         try {
             const { id } = req.params;
@@ -29,7 +27,6 @@ exports.gameController = {
             res.status(500).json({ error: 'Failed to fetch game' });
         }
     },
-    // Создать новую игру
     async createGame(req, res) {
         try {
             const { title, genre, platform, developer, release_year } = req.body;
@@ -42,7 +39,6 @@ exports.gameController = {
             res.status(500).json({ error: 'Failed to create game' });
         }
     },
-    // Обновить игру
     async updateGame(req, res) {
         try {
             const { id } = req.params;
@@ -56,7 +52,6 @@ exports.gameController = {
             res.status(500).json({ error: 'Failed to update game' });
         }
     },
-    // Удалить игру
     async deleteGame(req, res) {
         try {
             const { id } = req.params;

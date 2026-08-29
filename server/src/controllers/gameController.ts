@@ -3,7 +3,6 @@ import { getPool } from '../config/database';
 import { Game } from '../models/Game';
 
 export const gameController = {
-    // Получить все игры
     async getAllGames(req: Request, res: Response) {
         try {
             const pool = getPool();
@@ -14,7 +13,6 @@ export const gameController = {
         }
     },
 
-    // Получить игру по ID
     async getGameById(req: Request, res: Response) {
         try {
             const { id } = req.params;
@@ -31,7 +29,6 @@ export const gameController = {
         }
     },
 
-    // Создать новую игру
     async createGame(req: Request, res: Response) {
         try {
             const { title, genre, platform, developer, release_year } = req.body;
@@ -49,7 +46,6 @@ export const gameController = {
         }
     },
 
-    // Обновить игру
     async updateGame(req: Request, res: Response) {
         try {
             const { id } = req.params;
@@ -68,7 +64,6 @@ export const gameController = {
         }
     },
 
-    // Удалить игру
     async deleteGame(req: Request, res: Response) {
         try {
             const { id } = req.params;

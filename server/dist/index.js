@@ -34,7 +34,6 @@ async function connectDB() {
         console.log(`   Пароль: ${config.password ? '***' : '(пустой)'}`);
         console.log(`   База: ${config.database}`);
         pool = promise_1.default.createPool(config);
-        // Проверяем подключение
         const connection = await pool.getConnection();
         console.log('✅ Подключение к MySQL успешно!');
         connection.release();
@@ -47,7 +46,6 @@ async function connectDB() {
         throw error;
     }
 }
-// Маршруты
 app.get('/', (req, res) => {
     res.json({
         message: 'Game Diary API is running',
@@ -86,7 +84,6 @@ app.get('/api/test-db', async (req, res) => {
         });
     }
 });
-// Запуск сервера
 async function startServer() {
     try {
         await connectDB();

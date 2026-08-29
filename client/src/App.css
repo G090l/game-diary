@@ -14,7 +14,6 @@ body {
     min-height: 100vh;
 }
 
-/* Навигация */
 .navbar {
     background: #2c3e50;
     color: white;
@@ -63,14 +62,12 @@ body {
     background: #2980b9 !important;
 }
 
-/* Контейнер */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Карточки */
 .card {
     background: white;
     border-radius: 8px;
@@ -91,7 +88,6 @@ body {
     font-weight: bold;
 }
 
-/* Таблицы */
 .table-container {
     overflow-x: auto;
 }
@@ -121,7 +117,6 @@ tr:hover {
     background: #f8f9fa;
 }
 
-/* Кнопки */
 .btn {
     padding: 8px 16px;
     border: none;
@@ -184,7 +179,6 @@ tr:hover {
     margin: 0 4px;
 }
 
-/* Формы */
 .form-group {
     margin-bottom: 15px;
 }
@@ -229,7 +223,6 @@ textarea.form-control {
     margin-top: 20px;
 }
 
-/* Статусы */
 .status-badge {
     display: inline-block;
     padding: 4px 12px;
@@ -258,7 +251,6 @@ textarea.form-control {
     color: #92400e;
 }
 
-/* Статистика */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -285,7 +277,6 @@ textarea.form-control {
     font-size: 0.9rem;
 }
 
-/* Утилиты */
 .text-center {
     text-align: center;
 }
@@ -312,7 +303,6 @@ textarea.form-control {
     gap: 10px;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;

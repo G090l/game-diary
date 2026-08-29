@@ -10,19 +10,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Подключение к БД
 connectDB();
 
-// Маршруты
 app.use('/api/games', gamesRouter);
 app.use('/api/entries', entriesRouter);
 
-// Базовый маршрут
 app.get('/', (req, res) => {
     res.json({
         message: 'Game Diary API is running',
@@ -34,7 +30,6 @@ app.get('/', (req, res) => {
     });
 });
 
-// Обработка 404
 app.use((req, res) => {
     res.status(404).json({
         error: 'Not Found',
@@ -42,7 +37,6 @@ app.use((req, res) => {
     });
 });
 
-// Обработка ошибок
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error('Error:', err);
     res.status(500).json({ error: 'Internal Server Error', message: err.message });
